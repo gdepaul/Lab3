@@ -45,6 +45,20 @@ _CONFIG2( IESO_OFF & SOSCSEL_SOSC & WUTSEL_LEG & FNOSC_PRIPLL & FCKSM_CSDCMD & O
 
 int main(void)
 {
+    // Configure AD1PCFG register for configuring input pin as analog
+    AD1PCFGbits.PCFG0 = 1;
+
+    // Configure TRIS register bits for Input
+    TRISAbits.TRISA0 = 1;
+
+    // Configure CNPU register bits to enable internal pullup resistor for input.
+    CNPU1bits.CN2PUE = 1; //IO5 Input
+    CNEN1bits.CN2IE = 1;
+
+    // Input Change Notification
+    IFS1bits.CNIF = 0;
+    IEC1bits.CNIE = 1;
+
     while(1)
 	{
 
