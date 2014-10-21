@@ -36,6 +36,7 @@ _CONFIG2( IESO_OFF & SOSCSEL_SOSC & WUTSEL_LEG & FNOSC_PRIPLL & FCKSM_CSDCMD & O
 // ******************************************************************************************* //
 
 // Global Variables
+volatile char updateA2D;
 
 // ******************************************************************************************* //
 
@@ -45,26 +46,44 @@ _CONFIG2( IESO_OFF & SOSCSEL_SOSC & WUTSEL_LEG & FNOSC_PRIPLL & FCKSM_CSDCMD & O
 
 int main(void)
 {
+    // Initialize Variables
+    updateA2D = 1;
+    int ADC_value;
+    char value[8];
+    double AD_value;
+
+    //Initialize the LCD
+    LCDInitialize();
+
     // Configure AD1PCFG register for configuring input pin as analog
-    AD1PCFGbits.PCFG0 = 1;
+    AD1PCFG &= 0xFFFE;
+    AD1CON2 = 0;
+    AD1CON3 = 0x0101;
+    AD1CON1 = 0x20E4;
+    AD1CHS = 0;
+    AD1CSSL = 0;
 
-    // Configure TRIS register bits for Input
-    TRISAbits.TRISA0 = 1;
+    IFS0bits.AD1IF = 0; // Clear A/D conversion interrupt.
+    AD1CON1bits.ADON = 1; // Turn on A/D
 
-    // Configure CNPU register bits to enable internal pullup resistor for input.
-    CNPU1bits.CN2PUE = 1; //IO5 Input
-    CNEN1bits.CN2IE = 1;
-
-    // Input Change Notification
-    IFS1bits.CNIF = 0;
-    IEC1bits.CNIE = 1;
 
     while(1)
-	{
+    {
 
-               
+        while (IFS0bits.AD1IF ==0);     // AD1CON1bits.DONE can be checked instead
+	IFS0bits.AD1IF = 0;
+	ADC_value = ADC1BUF0;
 
-        }
-    
-	return 0;
+	sprintf(value, "%6d", ADC_value);
+	LCDMoveCursor(0,0);
+        LCDPrintString(value);
+
+	AD_value = (ADC_value * 3.3)/1024;
+	sprintf(value, "%6.2f", AD_value);
+	LCDMoveCursor(1,0);
+        LCDPrintString(value);
+
+    }
+
+    return 0;
 }
