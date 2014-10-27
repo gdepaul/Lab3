@@ -36,7 +36,6 @@ _CONFIG2( IESO_OFF & SOSCSEL_SOSC & WUTSEL_LEG & FNOSC_PRIPLL & FCKSM_CSDCMD & O
 // ******************************************************************************************* //
 
 // Global Variables
-volatile char updateA2D;
 
 // ******************************************************************************************* //
 
@@ -47,15 +46,14 @@ volatile char updateA2D;
 int main(void)
 {
     // Initialize Variables
-    updateA2D = 1;
     int ADC_value;
     char value[8];
-    double AD_value;
 
     //Initialize the LCD
     LCDInitialize();
 
     // Configure AD1PCFG register for configuring input pin as analog
+    // This will configue the ADC for the potentiometer
     AD1PCFG &= 0xFFFE;
     AD1CON2 = 0;
     AD1CON3 = 0x0101;
@@ -66,23 +64,49 @@ int main(void)
     IFS0bits.AD1IF = 0; // Clear A/D conversion interrupt.
     AD1CON1bits.ADON = 1; // Turn on A/D
 
+    // Now we must configure the pins to be used for the PWM
+    TMR2 = 0;
+    PR2 = 1842;    //1ms
+    AD1PCFGbits.PCFG4 = 1; //  RB2 as a digital pin
+    AD1PCFGbits.PCFG5 = 1;  // RB3
+    
+    CNPU2bits.CN16PUE = 1;// I-pull ups for RB11 and RB10
+    CNPU1bits.CN15PUE = 1;
+
+    // Set Up Output Compare Module to create two PWM signals
+    // OCM for 1 signal
+    RPOR1bits.RP2R = 18;        // Output Compare 1  -- 18 is for OC1 output
+    OC1CONbits.OCTSEL = 0;      // Using Timer 2 for OC1
+    OC1CONbits.OCM = 0b110;     // PWM mode
+    T2CON = 0x0000;
+    T2CONbits.TCKPS=1;
+    OC1R = 921;                 // 1842/2 = 921... 50% Duty cycle
+    OC2RS = 1842;		// Duty 100%
+    OC1CON = 0x0006;            // Configure OC1CON
+
+    // OCM for 2 signal
+    RPOR1bits.RP3R = 19;        // Output Compare 2 -- 19 is for OC2 output.
+    OC2CONbits.OCTSEL = 0;      // Using Timer 2 for OC2
+    OC2CONbits.OCM = 0b110;     // PWM mode
+    OC2R = 921;                 // 1842/2 = 921... 50% Duty cycle
+    OC2RS = 1842;               // 100% Duty
+    OC2CON = 0x0006;            // Configure OC2CON
+
     while(1)
     {
 
-        while (IFS0bits.AD1IF ==0);     // AD1CON1bits.DONE can be checked instead
-	IFS0bits.AD1IF = 0;
-	ADC_value = ADC1BUF0;
+        if(IFS0bits.AD1IF == 1) { // Poll for a change in the ADC value
+            IFS0bits.AD1IF = 0;
+            ADC_value = ADC1BUF0;
 
-	sprintf(value, "%6d", ADC_value);
-	LCDMoveCursor(0,0);
-        LCDPrintString(value);
-
-	AD_value = (ADC_value * 3.3)/1024;
-	sprintf(value, "%6.2f", AD_value);
-	LCDMoveCursor(1,0);
-        LCDPrintString(value);
+            // Print the digital value of the
+            sprintf(value, "%6d", ADC_value);
+            LCDMoveCursor(0,0);
+            LCDPrintString(value);
+        }
 
     }
-
+    
     return 0;
+    
 }
