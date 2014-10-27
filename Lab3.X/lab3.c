@@ -66,7 +66,6 @@ int main(void)
     IFS0bits.AD1IF = 0; // Clear A/D conversion interrupt.
     AD1CON1bits.ADON = 1; // Turn on A/D
 
-
     while(1)
     {
 
