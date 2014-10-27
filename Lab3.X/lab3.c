@@ -35,7 +35,18 @@ _CONFIG2( IESO_OFF & SOSCSEL_SOSC & WUTSEL_LEG & FNOSC_PRIPLL & FCKSM_CSDCMD & O
 
 // ******************************************************************************************* //
 
+// Definitions
+#define Idle1 0
+#define Forward 1
+#define Idle2 2
+#define Backward 3
+
+// ******************************************************************************************* //
+
 // Global Variables
+volatile int ADC_value;
+volatile char state;
+volatile char changeState;
 
 // ******************************************************************************************* //
 
@@ -46,8 +57,9 @@ _CONFIG2( IESO_OFF & SOSCSEL_SOSC & WUTSEL_LEG & FNOSC_PRIPLL & FCKSM_CSDCMD & O
 int main(void)
 {
     // Initialize Variables
-    int ADC_value;
     char value[8];
+    state = Idle1;
+    changeState = 1;
 
     //Initialize the LCD
     LCDInitialize();
@@ -63,6 +75,13 @@ int main(void)
 
     IFS0bits.AD1IF = 0; // Clear A/D conversion interrupt.
     AD1CON1bits.ADON = 1; // Turn on A/D
+
+    // Initialize a switch for the momentary changes
+    // Turn on SW1 with PORTB
+    TRISBbits.TRISB5 = 1;
+    CNEN2bits.CN27IE = 1;
+    IFS1bits.CNIF = 0;
+    IEC1bits.CNIE = 1;
 
     // Now we must configure the pins to be used for the PWM
     TMR2 = 0;
@@ -105,8 +124,51 @@ int main(void)
             LCDPrintString(value);
         }
 
+        if(changeState == 1 && PORTBbits.RB5 == 1) {
+            LCDClear();
+            switch(state) {
+                case(Idle1):
+                    state = Forward;
+                    changeState = 0;
+                    LCDMoveCursor(1,0);
+                    LCDPrintString("Idle");
+                    break;
+                case(Forward):
+                    state = Idle2;
+                    changeState = 0;
+                    LCDMoveCursor(1,0);
+                    LCDPrintString("Forward");
+                    break;
+                case(Idle2):
+                    state = Backward;
+                    changeState = 0;
+                    LCDMoveCursor(1,0);
+                    LCDPrintString("Idle");
+                    break;
+                case(Backward):
+                    state = Idle1;
+                    changeState = 0;
+                    LCDMoveCursor(1,0);
+                    LCDPrintString("Backward");
+                    break;
+            }
+        }
+
     }
     
     return 0;
     
 }
+
+// If the switch is turned on 
+void __attribute__((interrupt)) _CNInterrupt(void)
+{
+	// TODO: Clear interrupt flag
+	IFS1bits.CNIF = 0;
+
+	// TODO: Detect if *any* key of the keypad is *pressed*, and update scanKeypad
+	// variable to indicate keypad scanning process must be executed.
+        changeState = 1;
+
+}
+

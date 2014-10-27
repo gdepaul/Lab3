@@ -1,4 +1,4 @@
-Microchip Technology Inc, vàm
+Microchip Technology Inc, vàp
 
 Tool Name:
   c:\program files (x86)\microchip\xc16\v1.21\bin\bin\..\bin/elf-ld.exe
@@ -74,26 +74,25 @@ Program Memory  [Origin = 0x200, Length = 0xa9fa]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x964           0xe16  (3606)
-.const                       0xb64                 0x4             0x6  (6)
-.text                        0xb68               0x18e           0x255  (597)
-.dinit                       0xcf6                0xca           0x12f  (303)
-.text                        0xdc0                0xbc           0x11a  (282)
+.const                       0xb64                0x1a            0x27  (39)
+.text                        0xb7e               0x30c           0x492  (1170)
+.dinit                       0xe8a                0xca           0x12f  (303)
 
-                     Total program memory used (bytes):         0x12ba  (4794) 7%
+                     Total program memory used (bytes):         0x13fe  (5118) 7%
 
 
 Data Memory  [Origin = 0x800, Length = 0x2000]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.nbss                        0x800                   0             0x2  (2)
-.data.dpowers                0x802                   0            0xa0  (160)
-.data                        0x8a2                   0            0x2a  (42)
-.data._iob                   0x8cc                   0            0x26  (38)
-.bss                         0x8f2                   0             0x6  (6)
-.data.__C30_UART             0x8f8                   0             0x2  (2)
+.nbss                        0x800                   0             0x4  (4)
+.data.dpowers                0x804                   0            0xa0  (160)
+.data                        0x8a4                   0            0x2a  (42)
+.data._iob                   0x8ce                   0            0x26  (38)
+.bss                         0x8f4                   0             0x6  (6)
+.data.__C30_UART             0x8fa                   0             0x2  (2)
 
-                        Total data memory used (bytes):           0xfa  (250) 3%
+                        Total data memory used (bytes):           0xfc  (252) 3%
 
 
 Dynamic Memory Usage
@@ -101,37 +100,41 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0x8fa                              0x1f06  (7942)
+stack                        0x8fc                              0x1f04  (7940)
 
-                        Maximum dynamic memory (bytes):         0x1f06  (7942)
+                        Maximum dynamic memory (bytes):         0x1f04  (7940)
 
 
 External Symbols in Data Memory (by address):
 
-                    0x0800                  _updateA2D
-                    0x08cc                  __iob
-                    0x08f0                  __Files
-                    0x08f2                  __outdone
-                    0x08f3                  __sibuf
-                    0x08f5                  __sobuf
-                    0x08f8                  ___C30_UART
+                    0x0800                  _ADC_value
+                    0x0802                  _state
+                    0x0803                  _changeState
+                    0x08ce                  __iob
+                    0x08f2                  __Files
+                    0x08f4                  __outdone
+                    0x08f5                  __sibuf
+                    0x08f7                  __sobuf
+                    0x08fa                  ___C30_UART
 
 External Symbols in Data Memory (by name):
 
-                    0x08f0                  __Files
-                    0x08f8                  ___C30_UART
-                    0x08cc                  __iob
-                    0x08f2                  __outdone
-                    0x08f3                  __sibuf
-                    0x08f5                  __sobuf
-                    0x0800                  _updateA2D
+                    0x0800                  _ADC_value
+                    0x08f2                  __Files
+                    0x08fa                  ___C30_UART
+                    0x08ce                  __iob
+                    0x08f4                  __outdone
+                    0x08f5                  __sibuf
+                    0x08f7                  __sobuf
+                    0x0803                  _changeState
+                    0x0802                  _state
 
 External Symbols in Program Memory (by address):
 
                   0x000200                  __resetPRI
                   0x000226                  __psv_init
-                  0x000236                  __data_init_standard
                   0x000236                  __data_init
+                  0x000236                  __data_init_standard
                   0x000294                  __DefaultInterrupt
                   0x000298                  __sprintf_cdnopuxX
                   0x0002c4                  __vfprintf_cdnopuxX
@@ -140,26 +143,28 @@ External Symbols in Program Memory (by address):
                   0x000aa0                  ___umoddi3
                   0x000aa8                  ___divdi3
                   0x000b08                  ___moddi3
-                  0x000b68                  _DelayUs
-                  0x000b92                  _EnableLCD
-                  0x000bc0                  _WriteLCD
-                  0x000c0e                  _LCDClear
-                  0x000c1c                  _LCDInitialize
-                  0x000c8c                  _LCDMoveCursor
-                  0x000cc8                  _LCDPrintChar
-                  0x000cda                  _LCDPrintString
-                  0x000dc0                  _main
+                  0x000b7e                  _DelayUs
+                  0x000ba8                  _EnableLCD
+                  0x000bd6                  _WriteLCD
+                  0x000c24                  _LCDClear
+                  0x000c32                  _LCDInitialize
+                  0x000ca2                  _LCDMoveCursor
+                  0x000cde                  _LCDPrintChar
+                  0x000cf0                  _LCDPrintString
+                  0x000d0c                  _main
+                  0x000e6c                  __CNInterrupt
 
 External Symbols in Program Memory (by name):
 
-                  0x000b68                  _DelayUs
-                  0x000b92                  _EnableLCD
-                  0x000c0e                  _LCDClear
-                  0x000c1c                  _LCDInitialize
-                  0x000c8c                  _LCDMoveCursor
-                  0x000cc8                  _LCDPrintChar
-                  0x000cda                  _LCDPrintString
-                  0x000bc0                  _WriteLCD
+                  0x000b7e                  _DelayUs
+                  0x000ba8                  _EnableLCD
+                  0x000c24                  _LCDClear
+                  0x000c32                  _LCDInitialize
+                  0x000ca2                  _LCDMoveCursor
+                  0x000cde                  _LCDPrintChar
+                  0x000cf0                  _LCDPrintString
+                  0x000bd6                  _WriteLCD
+                  0x000e6c                  __CNInterrupt
                   0x000294                  __DefaultInterrupt
                   0x000aa8                  ___divdi3
                   0x000b08                  ___moddi3
@@ -172,7 +177,7 @@ External Symbols in Program Memory (by name):
                   0x000200                  __resetPRI
                   0x000298                  __sprintf_cdnopuxX
                   0x0002c4                  __vfprintf_cdnopuxX
-                  0x000dc0                  _main
+                  0x000d0c                  _main
 
 Memory Configuration
 
@@ -277,31 +282,31 @@ __CONFIG1         0x00abfe          0x2
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x1511
+.debug_info       0x000000       0x1ba4
  *(.debug_info)
- .debug_info      0x000000        0xe0e build/default/production/lab3.o
- .debug_info      0x000e0e        0x703 build/default/production/lcd.o
+ .debug_info      0x000000       0x14a1 build/default/production/lab3.o
+ .debug_info      0x0014a1        0x703 build/default/production/lcd.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x25a
+.debug_abbrev     0x000000        0x273
  *(.debug_abbrev)
- .debug_abbrev    0x000000        0x14e build/default/production/lab3.o
- .debug_abbrev    0x00014e        0x10c build/default/production/lcd.o
+ .debug_abbrev    0x000000        0x167 build/default/production/lab3.o
+ .debug_abbrev    0x000167        0x10c build/default/production/lcd.o
 
-.debug_line       0x000000        0x404
+.debug_line       0x000000        0x510
  *(.debug_line)
- .debug_line      0x000000        0x182 build/default/production/lab3.o
- .debug_line      0x000182        0x282 build/default/production/lcd.o
+ .debug_line      0x000000        0x28e build/default/production/lab3.o
+ .debug_line      0x00028e        0x282 build/default/production/lcd.o
 
-.debug_frame      0x000000         0xdc
+.debug_frame      0x000000         0xec
  *(.debug_frame)
- .debug_frame     0x000000         0x48 build/default/production/lab3.o
- .debug_frame     0x000048         0x94 build/default/production/lcd.o
+ .debug_frame     0x000000         0x58 build/default/production/lab3.o
+ .debug_frame     0x000058         0x94 build/default/production/lcd.o
 
-.debug_str        0x000000         0xa3
+.debug_str        0x000000         0xdf
  *(.debug_str)
- .debug_str       0x000000         0x72 build/default/production/lab3.o
- .debug_str       0x000072         0x31 build/default/production/lcd.o
+ .debug_str       0x000000         0xae build/default/production/lab3.o
+ .debug_str       0x0000ae         0x31 build/default/production/lcd.o
 
 .debug_loc
  *(.debug_loc)
@@ -310,12 +315,12 @@ __CONFIG1         0x00abfe          0x2
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000         0xd1
+                  0x000000         0xfc
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000         0x43 build/default/production/lab3.o
+                  0x000000         0x6e build/default/production/lab3.o
  .debug_pubnames
-                  0x000043         0x8e build/default/production/lcd.o
+                  0x00006e         0x8e build/default/production/lcd.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -355,7 +360,7 @@ __CONFIG1         0x00abfe          0x2
                   0x000034          0x4 LONG 0x294 DEFINED (__SI2C1Interrupt)?ABSOLUTE (__SI2C1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000036          0x4 LONG 0x294 DEFINED (__MI2C1Interrupt)?ABSOLUTE (__MI2C1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000038          0x4 LONG 0x294 DEFINED (__CompInterrupt)?ABSOLUTE (__CompInterrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00003a          0x4 LONG 0x294 DEFINED (__CNInterrupt)?ABSOLUTE (__CNInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00003a          0x4 LONG 0xe6c DEFINED (__CNInterrupt)?ABSOLUTE (__CNInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00003c          0x4 LONG 0x294 DEFINED (__INT1Interrupt)?ABSOLUTE (__INT1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00003e          0x4 LONG 0x294 DEFINED (__Interrupt21)?ABSOLUTE (__Interrupt21):ABSOLUTE (__DefaultInterrupt)
                   0x000040          0x4 LONG 0x294 DEFINED (__Interrupt22)?ABSOLUTE (__Interrupt22):ABSOLUTE (__DefaultInterrupt)
@@ -483,7 +488,7 @@ __CONFIG1         0x00abfe          0x2
                   0x000134          0x4 LONG 0x294 DEFINED (__AltSI2C1Interrupt)?ABSOLUTE (__AltSI2C1Interrupt):DEFINED (__SI2C1Interrupt)?ABSOLUTE (__SI2C1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000136          0x4 LONG 0x294 DEFINED (__AltMI2C1Interrupt)?ABSOLUTE (__AltMI2C1Interrupt):DEFINED (__MI2C1Interrupt)?ABSOLUTE (__MI2C1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000138          0x4 LONG 0x294 DEFINED (__AltCompInterrupt)?ABSOLUTE (__AltCompInterrupt):DEFINED (__CompInterrupt)?ABSOLUTE (__CompInterrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00013a          0x4 LONG 0x294 DEFINED (__AltCNInterrupt)?ABSOLUTE (__AltCNInterrupt):DEFINED (__CNInterrupt)?ABSOLUTE (__CNInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00013a          0x4 LONG 0xe6c DEFINED (__AltCNInterrupt)?ABSOLUTE (__AltCNInterrupt):DEFINED (__CNInterrupt)?ABSOLUTE (__CNInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00013c          0x4 LONG 0x294 DEFINED (__AltINT1Interrupt)?ABSOLUTE (__AltINT1Interrupt):DEFINED (__INT1Interrupt)?ABSOLUTE (__INT1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00013e          0x4 LONG 0x294 DEFINED (__AltInterrupt21)?ABSOLUTE (__AltInterrupt21):DEFINED (__Interrupt21)?ABSOLUTE (__Interrupt21):ABSOLUTE (__DefaultInterrupt)
                   0x000140          0x4 LONG 0x294 DEFINED (__AltInterrupt22)?ABSOLUTE (__AltInterrupt22):DEFINED (__Interrupt22)?ABSOLUTE (__Interrupt22):ABSOLUTE (__DefaultInterrupt)
@@ -1169,83 +1174,84 @@ LOAD default_isr
 LOAD data_init
 
 .debug_pubtypes
-                  0x000030        0x1a0
+                  0x000030        0x237
  .debug_pubtypes
-                  0x000030        0x133 build/default/production/lab3.o
+                  0x000030        0x1ca build/default/production/lab3.o
  .debug_pubtypes
-                  0x000163         0x6d build/default/production/lcd.o
+                  0x0001fa         0x6d build/default/production/lcd.o
 
 __c30_signature
-                  0x0001d0         0x48
+                  0x000268         0x48
  __c30_signature
-                  0x0001d0          0x6 build/default/production/lab3.o
+                  0x000268          0x6 build/default/production/lab3.o
  __c30_signature
-                  0x0001d6          0x6 build/default/production/lcd.o
+                  0x00026e          0x6 build/default/production/lcd.o
  __c30_signature
-                  0x0001dc          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o)
+                  0x000274          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x0001e2          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libpic30-elf.a(data_init_standard.o)
+                  0x00027a          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libpic30-elf.a(data_init_standard.o)
  __c30_signature
-                  0x0001e8          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(sprintf_cdnopuxX.XXeo)
+                  0x000280          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(sprintf_cdnopuxX.XXeo)
  __c30_signature
-                  0x0001ee          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(doprnt_cdnopuxX.XXeo)
+                  0x000286          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(doprnt_cdnopuxX.XXeo)
  __c30_signature
-                  0x0001f4          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(fputc.eo)
+                  0x00028c          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(fputc.eo)
  __c30_signature
-                  0x0001fa          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(_iob.eo)
+                  0x000292          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(_iob.eo)
  __c30_signature
-                  0x000200          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(flsbuf.eo)
+                  0x000298          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(flsbuf.eo)
  __c30_signature
-                  0x000206          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libpic30-elf.a(write.eo)
+                  0x00029e          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libpic30-elf.a(write.eo)
  __c30_signature
-                  0x00020c          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libpic30-elf.a(c30_uart.eo)
+                  0x0002a4          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libpic30-elf.a(c30_uart.eo)
  __c30_signature
-                  0x000212          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libm-elf.a(divmoddi3.eo)
+                  0x0002aa          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libm-elf.a(divmoddi3.eo)
 
-.nbss               0x0800          0x2
- .nbss              0x0800          0x2 build/default/production/lab3.o
-                    0x0800                  _updateA2D
+.nbss               0x0800          0x4
+ .nbss              0x0800          0x4 build/default/production/lab3.o
+                    0x0800                  _ADC_value
+                    0x0802                  _state
+                    0x0803                  _changeState
 
-.data.dpowers       0x0802         0xa0
- .data.dpowers      0x0802         0xa0 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(doprnt_cdnopuxX.XXeo)
+.data.dpowers       0x0804         0xa0
+ .data.dpowers      0x0804         0xa0 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(doprnt_cdnopuxX.XXeo)
 
-.data               0x08a2         0x2a
- .data              0x08a2         0x2a c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(doprnt_cdnopuxX.XXeo)
+.data               0x08a4         0x2a
+ .data              0x08a4         0x2a c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(doprnt_cdnopuxX.XXeo)
 
-.data._iob          0x08cc         0x26
- .data._iob         0x08cc         0x26 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(_iob.eo)
-                    0x08cc                  __iob
-                    0x08f0                  __Files
+.data._iob          0x08ce         0x26
+ .data._iob         0x08ce         0x26 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(_iob.eo)
+                    0x08ce                  __iob
+                    0x08f2                  __Files
 
-.bss                0x08f2          0x6
- .bss               0x08f2          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(_iob.eo)
-                    0x08f2                  __outdone
-                    0x08f3                  __sibuf
-                    0x08f5                  __sobuf
+.bss                0x08f4          0x6
+ .bss               0x08f4          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(_iob.eo)
+                    0x08f4                  __outdone
+                    0x08f5                  __sibuf
+                    0x08f7                  __sobuf
 
 .data.__C30_UART
-                    0x08f8          0x2
+                    0x08fa          0x2
  .data.__C30_UART
-                    0x08f8          0x2 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libpic30-elf.a(c30_uart.eo)
-                    0x08f8                  ___C30_UART
+                    0x08fa          0x2 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libpic30-elf.a(c30_uart.eo)
+                    0x08fa                  ___C30_UART
 
-.const              0x8b64          0x4 load address 0x000b64  
- .const             0x8b64          0x4 build/default/production/lab3.o
+.const              0x8b64         0x1a load address 0x000b64  
+ .const             0x8b64         0x1a build/default/production/lab3.o
 
-.text             0x000b68        0x18e
- .text            0x000b68        0x18e build/default/production/lcd.o
-                  0x000b68                  _DelayUs
-                  0x000b92                  _EnableLCD
-                  0x000bc0                  _WriteLCD
-                  0x000c0e                  _LCDClear
-                  0x000c1c                  _LCDInitialize
-                  0x000c8c                  _LCDMoveCursor
-                  0x000cc8                  _LCDPrintChar
-                  0x000cda                  _LCDPrintString
+.text             0x000b7e        0x30c
+ .text            0x000b7e        0x18e build/default/production/lcd.o
+                  0x000b7e                  _DelayUs
+                  0x000ba8                  _EnableLCD
+                  0x000bd6                  _WriteLCD
+                  0x000c24                  _LCDClear
+                  0x000c32                  _LCDInitialize
+                  0x000ca2                  _LCDMoveCursor
+                  0x000cde                  _LCDPrintChar
+                  0x000cf0                  _LCDPrintString
+ .text            0x000d0c        0x17e build/default/production/lab3.o
+                  0x000d0c                  _main
+                  0x000e6c                  __CNInterrupt
 
-.dinit            0x000cf6         0xca
- .dinit           0x000cf6         0xca data_init
-
-.text             0x000dc0         0xbc
- .text            0x000dc0         0xbc build/default/production/lab3.o
-                  0x000dc0                  _main
+.dinit            0x000e8a         0xca
+ .dinit           0x000e8a         0xca data_init
