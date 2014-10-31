@@ -52,23 +52,23 @@ void DelayUs(unsigned int usDelay) {
 /**********************************************/
 
 	// Setup Timer 2's prescaler to 1:256.
-        T2CONbits.TCKPS0 = 1;
-        T2CONbits.TCKPS1 = 1;
+        T3CONbits.TCKPS0 = 1;
+        T3CONbits.TCKPS1 = 1;
 
 	// Clear Timer 2 value and reset interrupt flag
-        TMR2 = 0;
+        TMR3 = 0;
 
 	// Set Timer 2's period value register to value for 5 ms.
-        PR2 = 57*usDelay;
+        PR3 = 57*usDelay;
 
         // Start the timer
-        T2CON = 0x8030;
+        T3CON = 0x8030;
 
         // Wait for the timer to finish
-        while(TMR2 < PR2);
+        while(TMR3 < PR3);
 
         // Turn off timer
-        T2CONbits.TON = 0;
+        T3CONbits.TON = 0;
 
 /*****************************************************/
 }

@@ -51,6 +51,7 @@ volatile char changeState;
 // ******************************************************************************************* //
 
 // Function Definitions
+void setMotors();
 
 // ******************************************************************************************* //
 
@@ -73,8 +74,8 @@ int main(void)
     AD1CHS = 0;
     AD1CSSL = 0;
 
-    IFS0bits.AD1IF = 0; // Clear A/D conversion interrupt.
-    AD1CON1bits.ADON = 1; // Turn on A/D
+    IFS0bits.AD1IF = 0;         // Clear A/D conversion interrupt.
+    AD1CON1bits.ADON = 1;       // Turn on A/D
 
     // Initialize a switch for the momentary changes
     // Turn on SW1 with PORTB
@@ -83,33 +84,40 @@ int main(void)
     IFS1bits.CNIF = 0;
     IEC1bits.CNIE = 1;
 
+    // Use an Enable bit for C (Pin 3)
+    TRISAbits.TRISA1 = 0;       // Output
+    AD1PCFGbits.PCFG1 = 1;      // Digital
+    PORTAbits.RA2 = 1;          // Initially, have the output as off
+    
+    // Enable bit for D (Pin 4)
+    TRISAbits.TRISA1 = 0;       // Output
+    AD1PCFGbits.PCFG2 = 1;      // Digital
+    PORTBbits.RB2 = 0;          // Initially, have the output as off
+
     // Now we must configure the pins to be used for the PWM
     TMR2 = 0;
-    PR2 = 1842;    //1ms
-    AD1PCFGbits.PCFG4 = 1; //  RB2 as a digital pin
-    AD1PCFGbits.PCFG5 = 1;  // RB3
-    
-    CNPU2bits.CN16PUE = 1;// I-pull ups for RB11 and RB10
-    CNPU1bits.CN15PUE = 1;
+    T2CONbits.TCKPS1 = 1;
+    T2CONbits.TCKPS0 = 1;
+    T2CONbits.TON = 1;
+    PR2 = 1842;                 // 1ms
 
     // Set Up Output Compare Module to create two PWM signals
     // OCM for 1 signal
+    // 
     RPOR1bits.RP2R = 18;        // Output Compare 1  -- 18 is for OC1 output
     OC1CONbits.OCTSEL = 0;      // Using Timer 2 for OC1
-    OC1CONbits.OCM = 0b110;     // PWM mode
-    T2CON = 0x0000;
-    T2CONbits.TCKPS=1;
-    OC1R = 921;                 // 1842/2 = 921... 50% Duty cycle
-    OC2RS = 1842;		// Duty 100%
-    OC1CON = 0x0006;            // Configure OC1CON
+    OC1CONbits.OCM = 6;         // PWM mode
+    OC1R = 1842;                // 1842/2 = 921... 50% Duty cycle
+    OC1RS = 921;		// Duty 100%
 
+    /*
     // OCM for 2 signal
     RPOR1bits.RP3R = 19;        // Output Compare 2 -- 19 is for OC2 output.
     OC2CONbits.OCTSEL = 0;      // Using Timer 2 for OC2
-    OC2CONbits.OCM = 0b110;     // PWM mode
-    OC2R = 921;                 // 1842/2 = 921... 50% Duty cycle
-    OC2RS = 1842;               // 100% Duty
-    OC2CON = 0x0006;            // Configure OC2CON
+    OC2CONbits.OCM = 6;         // PWM mode
+    OC2R = 1842;                // 1842/2 = 921... 50% Duty cycle
+    OC2RS = 921;                // 100% Duty
+     */
 
     while(1)
     {
@@ -129,24 +137,28 @@ int main(void)
             switch(state) {
                 case(Idle1):
                     state = Forward;
+                    PORTAbits.RA2 = 1;
                     changeState = 0;
                     LCDMoveCursor(1,0);
                     LCDPrintString("Idle");
                     break;
                 case(Forward):
                     state = Idle2;
+                    PORTAbits.RA2 = 0;
                     changeState = 0;
                     LCDMoveCursor(1,0);
                     LCDPrintString("Forward");
                     break;
                 case(Idle2):
                     state = Backward;
+                    PORTAbits.RA2 = 1;
                     changeState = 0;
                     LCDMoveCursor(1,0);
                     LCDPrintString("Idle");
                     break;
                 case(Backward):
                     state = Idle1;
+                    PORTAbits.RA2 = 1;
                     changeState = 0;
                     LCDMoveCursor(1,0);
                     LCDPrintString("Backward");
@@ -160,8 +172,10 @@ int main(void)
     
 }
 
+// ******************************************************************************************* //
+
 // If the switch is turned on 
-void __attribute__((interrupt)) _CNInterrupt(void)
+void _ISR _CNInterrupt(void)
 {
 	// TODO: Clear interrupt flag
 	IFS1bits.CNIF = 0;
@@ -172,3 +186,10 @@ void __attribute__((interrupt)) _CNInterrupt(void)
 
 }
 
+// ******************************************************************************************* //
+
+void setMotors() {
+    
+}
+
+// ******************************************************************************************* //
